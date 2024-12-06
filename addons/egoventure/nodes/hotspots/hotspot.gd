@@ -127,9 +127,11 @@ func _on_pressed():
 			Boombox.play_effect(effect)
 		if get_signal_connection_list("activate").size() > 0:
 			emit_signal("activate")
-		elif target_scene != "":
-			EgoVenture.target_view = target_view
-			EgoVenture.change_scene(target_scene)
+		elif target_scene or target_view:
+			if target_view:
+				EgoVenture.emit_signal("requested_view_change", target_view)
+			if target_scene:
+				EgoVenture.change_scene(target_scene)
 
 
 # Check wether the hotspot should be shown or hidden
